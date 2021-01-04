@@ -9,6 +9,7 @@
 #include <linux/uaccess.h>
 #include <linux/errno.h>
 #include <linux/device.h>
+#include <linux/semaphore.h>
 #define BUFF_SIZE 20
 MODULE_LICENSE("Dual BSD/GPL");
 
@@ -19,7 +20,7 @@ static struct cdev *my_cdev;
 
 DECLARE_WAIT_QUEUE_HEAD(readQ);
 DECLARE_WAIT_QUEUE_HEAD(writeQ);
-
+struct semaphore sem;
 char regA;
 char regB;
 char regC;
@@ -63,10 +64,17 @@ ssize_t alu_read(struct file *pfile, char __user *buffer, size_t length, loff_t 
 {	int ret;
 	char buff[BUFF_SIZE];
 	long int len = 0;
-
-	if(wait_event_interruptible(readQ,(pos>0))) //da bi imao sta da procita ceka da je nesto upisano
+	
+	if(down_interruptible(&sem))
+		return -ERESTARTSYS; 
+	while(pos==0){
+		up(&sem);
+		if(wait_event_interruptible(readQ,(pos>0))) //da bi imao sta da procita ceka da je nesto upisano
 			return -ERESTARTSYS;
-	if(pos>0){
+		if(down_interruptible(&sem))//semafor zauzima podatak koji treba da se ispise
+			return -ERESTARTSYS; 
+	}
+	if(pos==1){
 		pos=0; //da bih osigurala da se samo jednom upise
 		len = scnprintf(buff, BUFF_SIZE, "%d ", result);
 		ret = copy_to_user(buffer, buff, len);
@@ -91,6 +99,7 @@ ssize_t alu_read(struct file *pfile, char __user *buffer, size_t length, loff_t 
 	} else {
 		printk(KERN_WARNING "Nema sta da se procita");
 	}
+	up(&sem);
 	wake_up_interruptible(&writeQ); //kada se nesto upise, moci ce da se procita
 		return 0;	
 }
@@ -109,9 +118,16 @@ ssize_t alu_write(struct file *pfile, const char __user *buffer, size_t length, 
 		return -EFAULT;
 	buff[length-1] = '\0';
 	
-	if(wait_event_interruptible(writeQ,(pos==0))) //ceka da nema nista izracunato
+	if(down_interruptible(&sem))
+		return -ERESTARTSYS;
+	while(pos==1)
+	{	
+		up(&sem);
+		if(wait_event_interruptible(writeQ,(pos==0))) //ceka da nema nista izracunato
 			return -ERESTARTSYS;
-		
+		if(down_interruptible(&sem))
+			return -ERESTARTSYS;
+	}	
 	if(pos==0){
 	ret = sscanf(buff,"reg%c=%x", &reg, &num);	
 		if(ret==2)//two parameter parsed in sscanf
@@ -188,7 +204,7 @@ ssize_t alu_write(struct file *pfile, const char __user *buffer, size_t length, 
 	} else {
 		printk(KERN_WARNING "Ne moze da se upise, jer jos nije procitano");
 	}
-	
+	up(&sem);
 	wake_up_interruptible(&readQ);
 	return length; //probaj return 0;
 }
@@ -207,7 +223,7 @@ static int __init alu_init(void)
    carry=0;
    result=0;
    result2=0;
-
+   sema_init(&sem,1);
    ret = alloc_chrdev_region(&my_dev_id, 0, 1, "alu");
    if (ret){
       printk(KERN_ERR "failed to register char device\n");
