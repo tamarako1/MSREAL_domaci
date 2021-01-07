@@ -1,0 +1,1 @@
+cmd_/home/tamara/domaci/domaci_minor/alu_minor.ko := ld -r -m elf_i386 -T ./scripts/module-common.lds --build-id  -o /home/tamara/domaci/domaci_minor/alu_minor.ko /home/tamara/domaci/domaci_minor/alu_minor.o /home/tamara/domaci/domaci_minor/alu_minor.mod.o ;  true
