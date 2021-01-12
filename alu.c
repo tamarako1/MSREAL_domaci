@@ -29,9 +29,7 @@ int result; //potreban da bi rezultatm mogao biti veci od 255 kako bi carry bio 
 char result2; //potreban u read funkciji kako bi u teminalu ispisivao samo osmobitne vrednosti
 char carry;
 char format[4];
-
-int pos = 0;  //mozda ce trebati u read f-ji
-int endRead = 0; //takodje
+int pos = 0;  
 
 int alu_open(struct inode *pinode, struct file *pfile);
 int alu_close(struct inode *pinode, struct file *pfile);
@@ -79,6 +77,7 @@ ssize_t alu_read(struct file *pfile, char __user *buffer, size_t length, loff_t 
 		len = scnprintf(buff, BUFF_SIZE, "%d ", result);
 		ret = copy_to_user(buffer, buff, len);
 		result2=result;
+
 		if(ret)
 			return -EFAULT;
 			
@@ -93,8 +92,8 @@ ssize_t alu_read(struct file *pfile, char __user *buffer, size_t length, loff_t 
 				carry=1;
 				if(format[1]=='h' && format[2]=='e' && format[3]=='x') printk(KERN_INFO "0x%x %d\n", result2, carry);
 				if(format[1]=='d' && format[2]=='e' && format[3]=='c'){ printk(KERN_INFO "%d %d\n", result2, carry);
-				printk(KERN_INFO "Overfflow is happened\n");
 			}
+				printk(KERN_INFO "Netacan rezultat. Doslo je do prekoracenja.\n");
 			}
 	} else {
 		printk(KERN_WARNING "Nema sta da se procita");
@@ -206,7 +205,7 @@ ssize_t alu_write(struct file *pfile, const char __user *buffer, size_t length, 
 	}
 	up(&sem);
 	wake_up_interruptible(&readQ);
-	return length; //probaj return 0;
+	return length;
 }
 
 static int __init alu_init(void)
