@@ -9,10 +9,7 @@ int main(int argc, char** argv)
 	int  rez[4];
 	char znak[4];
 	char exit[5];
-	size_t num_of_bytes=10; //0xXX + null
-//	size_t  rez[0];
-//	size_t  rez[1];
-//	size_t  rez[2];
+	size_t num_of_bytes=6; //0xXX + null
 int ret;
 char *str;
 	while(1){ 
@@ -34,16 +31,15 @@ printf("Upisao je sve znakove\n");
 
 if(znak[0]=='*'){  					//br[0]*br[1]=rez[0]
 	fp = fopen("/dev/alu", "w");                              //otvori
-	printf("Uspesno je otvoren fajl za upis u regA");
 	if(fp == NULL)
 	{
 		printf("Problem pri otvaranju /dev/alu\n");
 		return -1;
 	}
-	fprintf(fp, "regA=%d", br[0]); 				//upise	
+	fprintf(fp, "regA=%x", br[0]); 				//upise	
 	fclose(fp);
 	fp=fopen("/dev/alu", "w");
-	fprintf(fp, "regB=%d", br[1]);
+	fprintf(fp, "regB=%x", br[1]);
 	fclose(fp);
 	fp=fopen("/dev/alu", "w");
 	fprintf(fp,"regA * regB");
@@ -56,7 +52,6 @@ if(znak[0]=='*'){  					//br[0]*br[1]=rez[0]
 		return -1;
 	}
 	getline(&str, &num_of_bytes, fp);
-//	rez[0]=str;
 	ret=sscanf(str, "0x%x", &rez[0]);
 	if(ret==1){
 	printf("Uspesno procitano iz fp");
@@ -65,14 +60,14 @@ if(znak[0]=='*'){  					//br[0]*br[1]=rez[0]
 //	fscanf(fp,"%x", &rez[0]); //cat				procita
 	if(fclose(fp));
 
-printf("rez[0]=%d", rez[0]);
+printf("rez[0]=%x", rez[0]);
 	if(znak[1]=='*'){   			//br[0]*br[1]*br[2]
 		fp = fopen("/dev/alu", "w");
 		//rez[1]=rez[0]*br[2];
-		fprintf(fp, "regA=%d", rez[0]);
+		fprintf(fp, "regA=%x", rez[0]);
 		fclose(fp);
 		fp=fopen("/dev/alu", "w");
-		fprintf(fp, "regB=%d", br[2]);
+		fprintf(fp, "regB=%x", br[2]);
 		fclose(fp);
 		fp=fopen("/dev/alu", "w");
 		fprintf(fp, "regA * regB"); //echo
@@ -93,10 +88,10 @@ printf("rez[0]=%d", rez[0]);
 		if(znak[2]=='*'){   				//br[0]*br[1]*br[2]*br[3]
 			fp = fopen("/dev/alu", "w");
 			//rez[2]=rez[1]*br[3];
-			fprintf(fp, "regA=%d", rez[1]);
+			fprintf(fp, "regA=%x", rez[1]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
-			fprintf(fp, "regB=%d", br[3]);
+			fprintf(fp, "regB=%x", br[3]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
 			fprintf(fp, "regA * regB");
@@ -117,10 +112,10 @@ printf("rez[0]=%d", rez[0]);
 		else if(znak[2]=='/'){				//br[0]*br[1]*br[2]/br[3]
 			fp = fopen("/dev/alu", "w");
 			//rez[2]=rez[1]/br[3];
-			fprintf(fp, "regA=%d", rez[1]);
+			fprintf(fp, "regA=%x", rez[1]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
-			fprintf(fp, "regB=%d", br[3]);
+			fprintf(fp, "regB=%x", br[3]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
 			fprintf(fp, "regA / regB");
@@ -137,10 +132,10 @@ printf("rez[0]=%d", rez[0]);
 		else if(znak[2]=='+'){				//br[0]*br[1]*br[2]+br[3]
 			fp = fopen("/dev/alu", "w");
 			//rez[2]=rez[1]+br[3];
-			fprintf(fp, "regA=%d", rez[1]);
+			fprintf(fp, "regA=%x", rez[1]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
-			fprintf(fp, "regB=%d", br[3]);
+			fprintf(fp, "regB=%x", br[3]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
 			fprintf(fp, "regA + regB");
@@ -157,10 +152,10 @@ printf("rez[0]=%d", rez[0]);
 		else if(znak[2]=='-'){				//br[0]*br[1]*br[2]-br[3]
 			fp = fopen("/dev/alu", "w");
 	//rez[2]=rez[1]-br[3];
-			fprintf(fp, "regA=%d", rez[1]);
+			fprintf(fp, "regA=%x", rez[1]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
-			fprintf(fp, "regB=%d", br[3]);
+			fprintf(fp, "regB=%x", br[3]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
 			fprintf(fp, "regA - regB");
@@ -179,10 +174,10 @@ printf("rez[0]=%d", rez[0]);
 	else if(znak[1]=='/'){				
 		fp = fopen("/dev/alu", "w");
 		//rez[1]=rez[0]/br[2];
-		fprintf(fp, "regA=%d", rez[0]);
+		fprintf(fp, "regA=%x", rez[0]);
 		fclose(fp);
 		fp=fopen("/dev/alu", "w");
-		fprintf(fp, "regB=%d", br[2]);
+		fprintf(fp, "regB=%x", br[2]);
 		fclose(fp);
 		fp=fopen("/dev/alu", "w");
 		fprintf(fp, "regA / regB");
@@ -199,10 +194,10 @@ printf("rez[0]=%d", rez[0]);
 		if(znak[2]=='*'){   				
 			fp = fopen("/dev/alu", "w");
 			//rez[2]=rez[1]*br[3];
-			fprintf(fp, "regA=%d", rez[1]);
+			fprintf(fp, "regA=%x", rez[1]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
-			fprintf(fp, "regB=%d", br[3]);
+			fprintf(fp, "regB=%x", br[3]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
 			fprintf(fp, "regA * regB");
@@ -219,10 +214,10 @@ printf("rez[0]=%d", rez[0]);
 		else if(znak[2]=='/'){
 			fp = fopen("/dev/alu", "w");
 			//rez[2]=rez[1]/br[3];
-			fprintf(fp, "regA=%d", rez[1]);
+			fprintf(fp, "regA=%x", rez[1]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
-			fprintf(fp, "regB=%d", br[3]);
+			fprintf(fp, "regB=%x", br[3]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
 			fprintf(fp, "regA / regB");
@@ -239,10 +234,10 @@ printf("rez[0]=%d", rez[0]);
 		else if(znak[2]=='+'){				
 			fp = fopen("/dev/alu", "w");
 			//rez[2]=rez[1]+br[3];
-			fprintf(fp, "regA=%d", rez[1]);
+			fprintf(fp, "regA=%x", rez[1]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
-			fprintf(fp, "regB=%d", br[3]);
+			fprintf(fp, "regB=%x", br[3]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
 			fprintf(fp, "regA + regB");
@@ -259,10 +254,10 @@ printf("rez[0]=%d", rez[0]);
 		else if(znak[2]=='-'){				
 		//rez[2]=rez[1]-br[3];		
 			fp = fopen("/dev/alu", "w");
-			fprintf(fp, "regA=%d", rez[1]);
+			fprintf(fp, "regA=%x", rez[1]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
-			fprintf(fp, "regB=%d", br[3]);
+			fprintf(fp, "regB=%x", br[3]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
 			fprintf(fp, "regA - regB");
@@ -280,10 +275,10 @@ printf("rez[0]=%d", rez[0]);
 	else if(znak[1]=='+'){   //rez[0]=br[0]*br[1]
 			if(znak[2]=='*'){   //br[0]*br[1]+br[2]*br[3]
 			fp = fopen("/dev/alu", "w");
-			fprintf(fp, "regA=%d", br[2]);
+			fprintf(fp, "regA=%x", br[2]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
-			fprintf(fp, "regB=%d", br[3]);
+			fprintf(fp, "regB=%x", br[3]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
 			fprintf(fp, "regA * regB");
@@ -291,7 +286,6 @@ printf("rez[0]=%d", rez[0]);
 			fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[1]=str;
 	ret=sscanf(str, "0x%x", &rez[1]);
 
 //			fscanf(fp, "%d", &rez[1]);
@@ -300,10 +294,10 @@ printf("rez[0]=%d", rez[0]);
 		
 		else if(znak[2]=='/'){   //br[0]*br[1]+br[2]/br[3]
 			fp = fopen("/dev/alu", "w");
-			fprintf(fp, "regA=%d", br[2]);
+			fprintf(fp, "regA=%x", br[2]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");	
-			fprintf(fp, "regB=%d", br[3]);
+			fprintf(fp, "regB=%x", br[3]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
 			fprintf(fp, "regA / regB");
@@ -320,10 +314,10 @@ printf("rez[0]=%d", rez[0]);
 				
 		else if(znak[2]=='+'){			//br[0]*br[1]+br[2]+br[3]
 			fp = fopen("/dev/alu", "w");
-			fprintf(fp, "regA=%d", br[2]);
+			fprintf(fp, "regA=%x", br[2]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
-			fprintf(fp, "regB=%d", br[3]);
+			fprintf(fp, "regB=%x", br[3]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");		
 			fprintf(fp, "regA + regB");
@@ -339,10 +333,10 @@ printf("rez[0]=%d", rez[0]);
 		}	
 		else if(znak[2]=='-'){				//br[0]/br[1]+br[2]-br[3]
 			fp = fopen("/dev/alu", "w");
-			fprintf(fp, "regA=%d", br[2]);
+			fprintf(fp, "regA=%x", br[2]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
-			fprintf(fp, "regB=%d", br[3]);
+			fprintf(fp, "regB=%x", br[3]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
 			fprintf(fp, "regA - regB");
@@ -358,10 +352,10 @@ printf("rez[0]=%d", rez[0]);
 		}
 		fp = fopen("/dev/alu", "w");
 		//rez[2]=rez[0]-rez[1]
-		fprintf(fp, "regA=%d", rez[0]);
+		fprintf(fp, "regA=%x", rez[0]);
 		fclose(fp);
 		fp=fopen("/dev/alu", "w");
-		fprintf(fp, "regB=%d", rez[1]);
+		fprintf(fp, "regB=%x", rez[1]);
 		fclose(fp);
 		fp=fopen("/dev/alu", "w");
 		fprintf(fp, "regA + regB");
@@ -379,10 +373,10 @@ printf("rez[0]=%d", rez[0]);
 	else if(znak[1]=='-'){ //rez[0]=br[0]*br[1]
 		if(znak[2]=='*'){   //br[0]*br[1]-br[2]*br[3]
 			fp = fopen("/dev/alu", "w");
-			fprintf(fp, "regA=%d", br[2]);
+			fprintf(fp, "regA=%x", br[2]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
-			fprintf(fp, "regB=%d", br[3]);
+			fprintf(fp, "regB=%x", br[3]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
 			fprintf(fp, "regA * regB");
@@ -398,10 +392,10 @@ printf("rez[0]=%d", rez[0]);
 		}
 		else if(znak[2]=='/'){   //br[0]*br[1]-br[2]/br[3]
 			fp = fopen("/dev/alu", "w");
-			fprintf(fp, "regA=%d", br[2]);
+			fprintf(fp, "regA=%x", br[2]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
-			fprintf(fp, "regB=%d", br[3]);
+			fprintf(fp, "regB=%x", br[3]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
 			fprintf(fp, "regA / regB");
@@ -418,10 +412,10 @@ printf("rez[0]=%d", rez[0]);
 				
 		else if(znak[2]=='+'){			//br[0]*br[1]-br[2]+br[3]
 			fp = fopen("/dev/alu", "w");
-			fprintf(fp, "regA=%d", br[2]);
+			fprintf(fp, "regA=%x", br[2]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
-			fprintf(fp, "regB=%d", br[3]);
+			fprintf(fp, "regB=%x", br[3]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
 			fprintf(fp, "regA + regB");
@@ -437,10 +431,10 @@ printf("rez[0]=%d", rez[0]);
 		}	
 		else if(znak[2]=='-'){				//br[0]*br[1]-br[2]-br[3]
 			fp = fopen("/dev/alu", "w");
-			fprintf(fp, "regA=%d", br[2]);
+			fprintf(fp, "regA=%x", br[2]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
-			fprintf(fp, "regB=%d", br[3]);
+			fprintf(fp, "regB=%x", br[3]);
 			fclose(fp);
 			fp=fopen("/dev/alu", "w");
 			fprintf(fp, "regA - regB");
@@ -456,10 +450,10 @@ printf("rez[0]=%d", rez[0]);
 		}
 		//rez[2]=rez[0]-rez[1]
 		fp = fopen("/dev/alu", "w");
-		fprintf(fp, "regA=%d", rez[0]);
+		fprintf(fp, "regA=%x", rez[0]);
 		fclose(fp);
 		fp=fopen("/dev/alu", "w");
-		fprintf(fp, "regB=%d", rez[1]);
+		fprintf(fp, "regB=%x", rez[1]);
 		fclose(fp);
 		fp=fopen("/dev/alu", "w");
 		fprintf(fp, "regA - regB");
@@ -474,9 +468,9 @@ printf("rez[0]=%d", rez[0]);
 		fclose(fp);
 	}
 	
-	printf("Rezultat rez[0]=%d\n", rez[0]);	
-	printf("Rezultat rez[1]=%d\n", rez[1]);
-	printf("Konacni rezultat je %d\n", rez[2]);
+	printf("Rezultat rez[0]=%x\n", rez[0]);	
+	printf("Rezultat rez[1]=%x\n", rez[1]);
+	printf("Konacni rezultat je %x\n", rez[2]);
 }// if(znak[0]=='*')
 /*
 else if(znak[0]=='/'){   //br[0]/br[1]
