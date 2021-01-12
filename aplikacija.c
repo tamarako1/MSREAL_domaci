@@ -75,7 +75,6 @@ printf("rez[0]=%x", rez[0]);
 		fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[1]=str;
 	ret=sscanf(str, "0x%x", &rez[1]);
 //	if(ret==1){
 	printf("Uspesno procitano iz fp");
@@ -99,7 +98,6 @@ printf("rez[0]=%x", rez[0]);
 			fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[2]=str;
 	ret=sscanf(str, "0x%x", &rez[2]);
 //	if(ret==1){
 	printf("Uspesno procitano iz fp");
@@ -123,7 +121,6 @@ printf("rez[0]=%x", rez[0]);
 			fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[2]=str;
 	ret=sscanf(str, "0x%x", &rez[2]);
 
 //			fscanf(fp,"%d", &rez[2]);
@@ -143,7 +140,6 @@ printf("rez[0]=%x", rez[0]);
 			fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[2]=str;
 	ret=sscanf(str, "0x%x", &rez[2]);
 
 //			fscanf(fp,"%d", &rez[2]); //cat
@@ -163,7 +159,6 @@ printf("rez[0]=%x", rez[0]);
 			fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[2]=str;
 	ret=sscanf(str, "0x%x", &rez[2]);
 
 //			fscanf(fp,"%d", &rez[2]);
@@ -185,7 +180,6 @@ printf("rez[0]=%x", rez[0]);
 		fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[1]=str;
 	ret=sscanf(str, "0x%x", &rez[1]);
 
 //		fscanf(fp,"%d", &rez[1]);	//cat
@@ -205,7 +199,6 @@ printf("rez[0]=%x", rez[0]);
 			fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[2]=str;
 	ret=sscanf(str, "0x%x", &rez[2]);
 
 //			fscanf(fp,"%d", &rez[2]);
@@ -225,7 +218,6 @@ printf("rez[0]=%x", rez[0]);
 			fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[2]=str;
 	ret=sscanf(str, "0x%x", &rez[2]);
 
 //			fscanf(fp,"%d", &rez[2]);
@@ -245,7 +237,6 @@ printf("rez[0]=%x", rez[0]);
 			fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[2]=str;
 	ret=sscanf(str, "0x%x", &rez[2]);
 
 //			fscanf(fp,"%d", &rez[2]);
@@ -265,7 +256,6 @@ printf("rez[0]=%x", rez[0]);
 			fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[2]=str;
 	ret=sscanf(str, "0x%x", &rez[2]);
 
 //			fscanf(fp,"%d", &rez[2]);
@@ -305,7 +295,6 @@ printf("rez[0]=%x", rez[0]);
 			fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[1]=str;
 	ret=sscanf(str, "0x%x", &rez[1]);
 
 //			fscanf(fp, "%d", &rez[1]);
@@ -325,7 +314,6 @@ printf("rez[0]=%x", rez[0]);
 			fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[1]=str;
 	ret=sscanf(str, "0x%x", &rez[1]);
 
 //			fscanf(fp, "%d", &rez[1]);
@@ -344,7 +332,6 @@ printf("rez[0]=%x", rez[0]);
 			fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[1]=str;
 	ret=sscanf(str, "0x%x", &rez[1]);
 
 //			fscanf(fp, "%d", &rez[1]);
@@ -363,7 +350,6 @@ printf("rez[0]=%x", rez[0]);
 		fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[2]=str;
 	ret=sscanf(str, "0x%x", &rez[2]);
 
 //		fscanf(fp, "%d", &rez[2]);
@@ -384,7 +370,6 @@ printf("rez[0]=%x", rez[0]);
 			fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[1]=str;
 	ret=sscanf(str, "0x%x", &rez[1]);
 
 //			fscanf(fp, "%d", &rez[1]);
@@ -403,7 +388,6 @@ printf("rez[0]=%x", rez[0]);
 			fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[1]=str;
 	ret=sscanf(str, "0x%x", &rez[1]);
 
 //			fscanf(fp, "%d", &rez[1]);
@@ -423,7 +407,6 @@ printf("rez[0]=%x", rez[0]);
 			fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[1]=str;
 	ret=sscanf(str, "0x%x", &rez[1]);
 
 //			fscanf(fp, "%d", &rez[1]);
@@ -442,7 +425,6 @@ printf("rez[0]=%x", rez[0]);
 			fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[1]=str;
 	ret=sscanf(str, "0x%x", &rez[1]);
 
 //			fscanf(fp, "%d", &rez[1]);
@@ -461,7 +443,6 @@ printf("rez[0]=%x", rez[0]);
 		fp=fopen("/dev/alu","r");
 	str=(char*)malloc(num_of_bytes+1);
 	getline(&str, &num_of_bytes, fp);
-//	rez[1]=str;
 	ret=sscanf(str, "0x%x", &rez[1]);
 
 //		fscanf(fp, "%d", &rez[2]);
