@@ -76,11 +76,11 @@ ssize_t alu_read(struct file *pfile, char __user *buffer, size_t length, loff_t 
 		pos=0; //da bih osigurala da se samo jednom upise
 		len = scnprintf(buff, BUFF_SIZE, "%d ", result);
 		ret = copy_to_user(buffer, buff, len);
-		result2=result;
 
 		if(ret)
 			return -EFAULT;
 			
+		result2=result;
 			if(result<255){
 				carry=0;			
 				printk(KERN_INFO "Succesfully read\n");
